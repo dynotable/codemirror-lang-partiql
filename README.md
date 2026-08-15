@@ -59,7 +59,7 @@ DynamoDB accepts a narrow PartiQL subset and rejects everything else at request 
 ## Related
 
 - [dynamodb-partiql-parser](https://github.com/dynotable/dynamodb-partiql-parser), the underlying zero-dependency parser and linter
-- [DynamoDB PartiQL guide](https://dynotable.com/learn/dynamodb-partiql), a walkthrough of the dialect itself
+- [DynamoDB PartiQL guide](https://dynotable.com/learn/dynamodb-partiql-examples), a walkthrough of the dialect itself
 
 ## License
 
