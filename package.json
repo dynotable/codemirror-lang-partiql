@@ -75,10 +75,5 @@
     "tsdown": "^0.15.7",
     "typescript": "^5.9.3",
     "vitest": "^4.0.0"
-  },
-  "pnpm": {
-    "overrides": {
-      "dynamodb-partiql-parser": "link:../dynamodb-partiql-parser"
-    }
   }
 }
