@@ -8,13 +8,32 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: codemirror-lang-partiql
     steps:
       - uses: actions/checkout@v4
+        with:
+          path: codemirror-lang-partiql
+      # package.json overrides dynamodb-partiql-parser to link:../dynamodb-partiql-parser
+      # for development, so CI builds the parser as a sibling checkout. TODO: after the
+      # parser's first npm publish, drop the override and collapse this back to a
+      # single-checkout workflow (see release.yml, which assumes the npm version).
+      - uses: actions/checkout@v4
+        with:
+          repository: dynotable/dynamodb-partiql-parser
+          path: dynamodb-partiql-parser
       - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: codemirror-lang-partiql/package.json
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: pnpm
+          cache-dependency-path: codemirror-lang-partiql/pnpm-lock.yaml
+      - name: Build the linked parser
+        run: pnpm install --frozen-lockfile && pnpm build
+        working-directory: dynamodb-partiql-parser
       - run: pnpm install --frozen-lockfile
       - name: Assert dependencies stay @codemirror/* + the parser only
         run: |
